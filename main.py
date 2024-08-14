@@ -2,6 +2,7 @@ import flet as ft
 from Player import Player
 from Combat import Combat
 from enemy import Enemy
+from Settings import Settings
 
 def main(page: ft.Page):
     page.title = "Life In School"
@@ -9,6 +10,7 @@ def main(page: ft.Page):
     player = Player()
     enemy = Enemy()
     combat = Combat(player, enemy)
+    settings = Settings()
 
     # **** Player Values to Display ****
     health = ft.Text(value=f"HEALTH: {player.getHP()}")
@@ -19,6 +21,9 @@ def main(page: ft.Page):
         health.value = f"HEALTH: {player.getHP()}"
         money.value = f"MONEY: {player.getMoneyAmount()}"
         page.update()
+
+    #def button_is_clicked():
+
 
     def navigate_to(page_name):
         if page_name == "page1":
@@ -101,7 +106,7 @@ def main(page: ft.Page):
                 ),
                 ft.Row(
                     controls = [
-                        ft.TextField(label="Enter Your Name"),
+                        ft.TextField(label="Enter Your Name", on_submit= lambda e: [settings.set_name(e.control.value), settings.test_name()]),
                     ],
                     alignment="CENTER"
                 ),
@@ -119,19 +124,19 @@ def main(page: ft.Page):
                     controls = [
                         ft.Column(
                             controls=[
-                                ft.OutlinedButton(text="Easy", width=200)
+                                ft.OutlinedButton(text="Easy", on_click=lambda e: [settings.set_Difficulty("Easy"), settings.test_Selection()], width=200)
                             ],
                             alignment="CENTER"
                         ),
                         ft.Column(
                             controls=[
-                                ft.OutlinedButton(text="Medium", width=200)
+                                ft.OutlinedButton(text="Medium", on_click=lambda e: [settings.set_Difficulty("Medium"), settings.test_Selection()], width=200)
                             ],
                             alignment="CENTER"
                         ),
                         ft.Column(
                             controls=[
-                                ft.OutlinedButton(text="Hard", width=200)
+                                ft.OutlinedButton(text="Hard", on_click=lambda e: [settings.set_Difficulty("Hard"), settings.test_Selection()], width=200)
                             ],
                             alignment="CENTER"
                         ),
